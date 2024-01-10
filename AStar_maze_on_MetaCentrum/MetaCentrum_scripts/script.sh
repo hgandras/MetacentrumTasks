@@ -4,7 +4,7 @@
 #PBS -e /storage/brno2/home/hgandras/job_logs
 #PBS -o /storage/brno2/home/hgandras/job_logs
 
-DATADIR=/storage/brno2/home/hgandras/AIForGames/MetacentrumTasks/AStar_maze_on_MetaCentrum/Python
+DATADIR=/storage/brno2/home/hgandras/AIForGames/MetacentrumTasks/AStar_maze_on_MetaCentrum
 RESULTDIR=/storage/brno2/home/hgandras/AIForGames/results
 ROOT=/storage/brno2/home/hgandras
 
@@ -19,7 +19,7 @@ test -n "$SCRATCHDIR" || { echo >&2 "Variable SCRATCHDIR is not set!"; exit 1; }
 cp -R $DATADIR/maze_astar $SCRATCHDIR
 cd $SCRATCHDIR/maze_astar
 
-python maze_astar.py $pathCostWeight $heuristicWeight
+python $DATADIR/Python/maze_astar.py $pathCostWeight $heuristicWeight
 
 cp -a results/. $RESULTDIR
 
