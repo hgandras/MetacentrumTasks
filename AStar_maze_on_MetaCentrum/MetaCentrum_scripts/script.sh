@@ -4,7 +4,7 @@
 #PBS -e /storage/brno2/home/hgandras/job_logs
 #PBS -o /storage/brno2/home/hgandras/job_logs
 
-DATADIR=/storage/brno2/home/hgandras/AIForGames/MetacentrumTasks/AStar\ maze\ on\ MetaCentrum/Python
+DATADIR=/storage/brno2/home/hgandras/AIForGames/MetacentrumTasks/AStar_maze_on_MetaCentrum/Python
 RESULTDIR=/storage/brno2/home/hgandras/AIForGames/results
 ROOT=/storage/brno2/home/hgandras
 
