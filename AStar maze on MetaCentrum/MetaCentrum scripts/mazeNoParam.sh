@@ -19,7 +19,7 @@ test -n "$SCRATCHDIR" || { echo >&2 "Variable SCRATCHDIR is not set!"; exit 1; }
 cp -R $DATADIR/maze_astar $SCRATCHDIR
 cd $SCRATCHDIR/maze_astar
 
-python maze_astar_no_param.py
+python $ROOT/Python/maze_astar_no_param.py
 
 cp -a results/. $RESULTDIR
 
