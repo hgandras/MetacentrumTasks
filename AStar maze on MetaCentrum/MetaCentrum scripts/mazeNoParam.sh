@@ -1,12 +1,12 @@
 #!/bin/bash
 #PBS -l select=1:ncpus=1:mem=4gb:scratch_local=1gb
 #PBS -l walltime=1:00:00
-#PBS -e TODO: set to the location where you want logs to be saved
-#PBS -o TODO: set to the location where you want logs to be saved
+#PBS -e /storage/brno2/home/hgandras/job_logs
+#PBS -o /storage/brno2/home/hgandras/job_logs
 
-DATADIR=TODO: set accordingly
-RESULTDIR=TODO: set accordingly
-ROOT=TODO: set accordingly
+DATADIR=/storage/brno2/home/hgandras/AIForGames/MetacentrumTasks/AStar\ maze\ on\ MetaCentrum
+RESULTDIR=/storage/brno2/home/hgandras/AIForGames/results
+ROOT=/storage/brno2/home/hgandras
 
 echo "$PBS_JOBID is running on node `hostname -f` in a scratch directory $SCRATCHDIR" >> $DATADIR/jobs_info.txt
 
