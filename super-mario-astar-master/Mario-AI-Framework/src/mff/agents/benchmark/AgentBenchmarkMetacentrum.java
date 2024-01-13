@@ -125,7 +125,7 @@ public class AgentBenchmarkMetacentrum {
             return;
         }    
 
-        String[] params=Arrays.copyOfRange(args, 1,args.length-1);
+        String[] params=Arrays.copyOfRange(args, 1,args.length);
         for (String level : levels) {                
             FileWriter logWriter=initTestingAgent(agentType,level,params);
             if(logWriter==null) //Probably unecessary null check
