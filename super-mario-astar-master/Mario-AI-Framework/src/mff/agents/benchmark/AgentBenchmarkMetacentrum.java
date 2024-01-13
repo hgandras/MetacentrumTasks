@@ -116,6 +116,9 @@ public class AgentBenchmarkMetacentrum {
         //for (float DFPMP : DFPMPs) {
 
         String agentType=args[0];
+        for (String string : args) {
+            System.out.println(string);
+        }
         if (args.length<2)
         {
             System.out.println("Parameters are not set up correctly!");
