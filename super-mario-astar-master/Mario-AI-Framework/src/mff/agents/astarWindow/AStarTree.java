@@ -25,6 +25,10 @@ public class AStarTree {
     static final float maxMarioSpeedX = 10.91f;
     static float exitTileX;
 
+    public int mostBacktrackedNodes = 0;
+    private int farthestReachedX;
+    private int nodesBeforeNewFarthestX = 0;
+
     public int nodesEvaluated = 0;
     public static float windowOffset=176.0f;
 
@@ -47,6 +51,9 @@ public class AStarTree {
     	furthestNode = getStartNode(startState);
     	furthestNode.cost = calculateCost(startState, furthestNode.nodeDepth);
     	furthestNodeDistance = furthestNode.state.getMarioX();
+        
+        farthestReachedX = (int) furthestNode.state.getMarioX();
+
     	
     	opened.add(furthestNode);
     }
@@ -91,6 +98,14 @@ public class AStarTree {
         while (opened.size() > 0 && timer.getRemainingTime() > 0) {
             SearchNode current = opened.remove();
             nodesEvaluated++;
+
+            if ((int) current.state.getMarioX() > farthestReachedX) {
+                mostBacktrackedNodes = Math.max(nodesBeforeNewFarthestX, mostBacktrackedNodes);
+                farthestReachedX = (int) current.state.getMarioX();
+                nodesBeforeNewFarthestX = 0;
+            } else {
+                nodesBeforeNewFarthestX++;
+            }
 
             if (current.state.getMarioX() > furthestNodeDistance) {
                 furthestNode = current;

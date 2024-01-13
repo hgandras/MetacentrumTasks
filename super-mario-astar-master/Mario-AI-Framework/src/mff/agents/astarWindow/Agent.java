@@ -2,13 +2,14 @@ package mff.agents.astarWindow;
 
 import mff.agents.astarHelper.MarioAction;
 import mff.agents.benchmark.IAgentBenchmark;
+import mff.agents.benchmark.IAgentBenchmarkBacktrack;
 import mff.agents.common.IMarioAgentMFF;
 import mff.agents.common.MarioTimerSlim;
 import mff.forwardmodel.slim.core.MarioForwardModelSlim;
 
 import java.util.ArrayList;
 
-public class Agent implements IMarioAgentMFF, IAgentBenchmark {
+public class Agent implements IMarioAgentMFF, IAgentBenchmark, IAgentBenchmarkBacktrack {
 
     private ArrayList<boolean[]> actionsList = new ArrayList<>();
     private float furthestDistance = -1;
@@ -67,5 +68,11 @@ public class Agent implements IMarioAgentMFF, IAgentBenchmark {
     @Override
     public String getAgentName() {
         return "MFF AStar Agent";
+    }
+
+    @Override
+    public int getMostBacktrackedNodes() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getMostBacktrackedNodes'");
     }
 }
