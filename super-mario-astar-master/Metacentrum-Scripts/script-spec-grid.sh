@@ -5,7 +5,7 @@
 #PBS -e /storage/brno2/home/hgandras/job_logs
 #PBS -o /storage/brno2/home/hgandras/job_logs
 
-DATADIR=/storage/brno2/home/hgandras/AIForGames/MetacentrumTasks/super-mario-astar
+DATADIR=/storage/brno2/home/hgandras/AIForGames/MetacentrumTasks/super-mario-astar-master
 RESULTDIR=/storage/brno2/home/hgandras/AIForGames/results/astarGrid
 ROOT=/storage/brno2/home/hgandras
 
