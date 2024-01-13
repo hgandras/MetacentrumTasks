@@ -16,6 +16,7 @@ public class Agent implements IMarioAgentMFF, IAgentBenchmark, IAgentBenchmarkBa
     private boolean finished = false;
     private int totalSearchCalls = 0;
     private int totalNodesEvaluated = 0;
+    private int mostBacktrackedNodes = 0;
 
     @Override
     public void initialize(MarioForwardModelSlim model) {
@@ -36,6 +37,7 @@ public class Agent implements IMarioAgentMFF, IAgentBenchmark, IAgentBenchmarkBa
         ArrayList<boolean[]> newActionsList = tree.search(timer);
         totalSearchCalls++;
         this.totalNodesEvaluated += tree.nodesEvaluated;
+        this.mostBacktrackedNodes = Math.max(tree.mostBacktrackedNodes, this.mostBacktrackedNodes);
 
         if (AStarTree.winFound) {
             actionsList = newActionsList;
@@ -72,7 +74,6 @@ public class Agent implements IMarioAgentMFF, IAgentBenchmark, IAgentBenchmarkBa
 
     @Override
     public int getMostBacktrackedNodes() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMostBacktrackedNodes'");
+        return mostBacktrackedNodes;
     }
 }
