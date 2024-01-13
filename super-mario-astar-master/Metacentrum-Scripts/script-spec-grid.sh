@@ -1,5 +1,4 @@
 #!/bin/bash
-#PBS -q default@cerit-pbs.cerit-sc.cz
 #PBS -l walltime=20:00:00
 #PBS -l select=1:ncpus=1:mem=4gb:scratch_local=1gb:spec=5.1:cluster=gita:pbs_server=cerit-pbs.cerit-sc.cz:cpu_vendor=amd
 #PBS -e /storage/brno2/home/hgandras/job_logs
