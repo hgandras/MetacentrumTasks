@@ -22,7 +22,7 @@ cd $SCRATCHDIR/Mario-AI-Framework
 
 # compile and run Java
 javac -cp src src/mff/agents/benchmark/AgentBenchmarkMetacentrum.java
-java -cp src mff.agents.benchmark.AgentBenchmarkMetacentrum 
+java -cp src mff.agents.benchmark.AgentBenchmarkMetacentrum "astar" $searchSteps $timeToFinishWeight
 
 # move output to data dir
 #cp -a agent-benchmark/. $ROOT || { echo >&2 "Error while copying output file(s) to root!"; exit 2; }

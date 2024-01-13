@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
 import static mff.agents.common.AStarGridHelper.giveLevelTilesWithPath;
@@ -29,46 +30,41 @@ public class AgentBenchmarkMetacentrum {
         twoFractionDigitsDotSeparator = new DecimalFormat("0.00", symbols);
     }
 
-    private static final ArrayList<String> agents = new ArrayList<>() {{
 //        add("robinBaumgarten");
 //        add("robinBaumgartenSlimWindowAdvance");
 //        add("astar");
 //        add("astarPlanningDynamic");
 //        add("astarWindow");
-        add("astarGrid");
-    }};
+//       add("astarGrid");
 
-    private static final ArrayList<String> levels = new ArrayList<>() {{
-        add("original");
-        add("krys");
-        add("ge");
-        add("hopper");
-        add("notch");
-        add("notchParam");
-        add("notchParamRand");
-        add("ore");
-        add("patternCount");
-        add("patternOccur");
-        add("patternWeightCount");
-    }};
+    private static FileWriter initTestingAgent(String agentType,String level, String[] params)  throws IOException
+    {
+        FileWriter logWriter=null;
+        File log;
+        try{
+            switch (agentType) {
+                case "astar":
+                    mff.agents.astar.AStarTree.TIME_TO_FINISH_WEIGHT=Float.parseFloat(params[1]);
+                    mff.agents.astar.AStarTree.searchSteps=Integer.parseInt(params[0]); 
+                    log = prepareLog("agent-benchmark"+File.separator + agentType + "-"+ level 
+                        + "-ST-" + mff.agents.astar.AStarTree.searchSteps 
+                        + "-TTFW-" + mff.agents.astar.AStarTree.TIME_TO_FINISH_WEIGHT
+                        );
+                    if (log == null)
+                        return logWriter;
+                    logWriter = new FileWriter(log);
 
-    public static void main(String[] args) throws IOException {
-        float[] DFPMPs = { 0.00f, 1.00f, 2.00f, 3.00f, 5.00f, 7.00f, 10.00f, 20.00f, 50.00f };
-        for (float DFPMP : DFPMPs) {
-            try {
-                AStarTree.NODE_DEPTH_WEIGHT = Float.parseFloat(args[0]);
-                AStarTree.TIME_TO_FINISH_WEIGHT = Float.parseFloat(args[1]);
-                AStarTree.DISTANCE_FROM_PATH_TOLERANCE = Float.parseFloat(args[2]);
-                AStarTree.DISTANCE_FROM_PATH_ADDITIVE_PENALTY = Float.parseFloat(args[3]);
-                AStarTree.DISTANCE_FROM_PATH_MULTIPLICATIVE_PENALTY = DFPMP;
-            } catch (Exception e) {
-                System.out.println("Meta parameters not set successfully.");
-                throw e;
-            }
-
-            for (var agentType : agents) {
-                for (String level : levels) {
-                    File log = prepareLog("agent-benchmark" + File.separator + agentType + "-" + level
+                    logWriter.write("ST:" + mff.agents.astar.AStarTree.searchSteps + "\n");
+                    logWriter.write("TTFW:" + mff.agents.astar.AStarTree.TIME_TO_FINISH_WEIGHT + "\n");
+                    logWriter.write("level,win/fail,% travelled,run time,game ticks,planning time,total plannings,nodes evaluated,most backtracked nodes\n");
+                    break;
+                case "astarGrid":
+                    AStarTree.NODE_DEPTH_WEIGHT = Float.parseFloat(params[0]);
+                    AStarTree.TIME_TO_FINISH_WEIGHT = Float.parseFloat(params[1]);
+                    AStarTree.DISTANCE_FROM_PATH_TOLERANCE = Float.parseFloat(params[2]);
+                    AStarTree.DISTANCE_FROM_PATH_ADDITIVE_PENALTY = Float.parseFloat(params[3]);
+                    AStarTree.DISTANCE_FROM_PATH_MULTIPLICATIVE_PENALTY = Float.parseFloat(params[4]);
+                    log = prepareLog("agent-benchmark" + File.separator + agentType + "-" + level
                             + "-NDW-" + AStarTree.NODE_DEPTH_WEIGHT
                             + "-TTFW-" + AStarTree.TIME_TO_FINISH_WEIGHT
                             + "-DFPT-" + AStarTree.DISTANCE_FROM_PATH_TOLERANCE
@@ -77,8 +73,8 @@ public class AgentBenchmarkMetacentrum {
                             + ".csv");
 
                     if (log == null)
-                        return;
-                    FileWriter logWriter = new FileWriter(log);
+                        return logWriter;
+                    logWriter = new FileWriter(log);
 
                     logWriter.write("NDW:" + AStarTree.NODE_DEPTH_WEIGHT + "\n");
                     logWriter.write("TTFW:" + AStarTree.TIME_TO_FINISH_WEIGHT + "\n");
@@ -86,21 +82,65 @@ public class AgentBenchmarkMetacentrum {
                     logWriter.write("DFPAP:" + AStarTree.DISTANCE_FROM_PATH_ADDITIVE_PENALTY + "\n");
                     logWriter.write("DFPMP:" + AStarTree.DISTANCE_FROM_PATH_MULTIPLICATIVE_PENALTY + "\n");
                     logWriter.write("level,win/fail,% travelled,run time,game ticks,planning time,total plannings,nodes evaluated,most backtracked nodes\n");
-
-                    warmup(agentType);
-
-                    if (level.equals("original"))
-                        testOriginalLevels(agentType, logWriter);
-                    else if (level.equals("krys"))
-                        testKrysLevels(agentType, logWriter);
-                    else
-                        testFrameworkLevels(agentType, logWriter, level);
-
-                    logWriter.close();
-                }
+                    break;
+                //Others might be added later on
+                default:
+                    break;
             }
         }
+        catch(Exception e)
+        {
+            System.out.println("Meta parameters not set successfully.");
+            throw e;
+        } 
+        
+        return logWriter;
     }
+
+    private static final ArrayList<String> levels = new ArrayList<>() {{
+        add("original");
+        add("krys");
+        //add("ge");
+       // add("hopper");
+        //add("notch");
+        //add("notchParam");
+       // add("notchParamRand");
+        //add("ore");
+        add("patternCount");
+        //add("patternOccur");
+        //add("patternWeightCount");
+    }};
+
+    public static void main(String[] args) throws IOException {
+        //float[] DFPMPs = { 0.00f, 1.00f, 2.00f, 3.00f, 5.00f, 7.00f, 10.00f, 20.00f, 50.00f };
+        //for (float DFPMP : DFPMPs) {
+
+        String agentType=args[0];
+        if (args.length<2)
+        {
+            System.out.println("Parameters are not set up correctly!");
+            return;
+        }    
+
+        String[] params=Arrays.copyOfRange(args, 1,args.length-1);
+        for (String level : levels) {                
+            FileWriter logWriter=initTestingAgent(agentType,level,params);
+            if(logWriter==null) //Probably unecessary null check
+            {
+                System.out.println("Parameters are not set up correctly!");
+                return;
+            }    
+            warmup(agentType);
+            if (level.equals("original"))
+                testOriginalLevels(agentType, logWriter);
+            else if (level.equals("krys"))
+                testKrysLevels(agentType, logWriter);
+            else
+                testFrameworkLevels(agentType, logWriter, level);
+            logWriter.close();
+            }
+    }
+    
 
     private static void testFrameworkLevels(String agentType, FileWriter log, String levelsName) throws IOException {
         AgentStats agentStats;
