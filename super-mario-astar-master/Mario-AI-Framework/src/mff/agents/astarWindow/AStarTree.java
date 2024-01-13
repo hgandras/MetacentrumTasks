@@ -26,6 +26,7 @@ public class AStarTree {
     static float exitTileX;
 
     public int nodesEvaluated = 0;
+    public static float windowOffset=176.0f;
 
     PriorityQueue<SearchNode> opened = new PriorityQueue<>(new CompareByCost());
     /**
@@ -37,7 +38,7 @@ public class AStarTree {
     	this.searchSteps = searchSteps;
 
     	marioXStart = startState.getMarioX();
-    	rightWindowBorderX = (int) (marioXStart + 176);
+    	rightWindowBorderX = (int) (marioXStart + windowOffset);
     	//furthestNonEmptyRightX = findNonEmptyColumn(rightWindowBorderX, startState) * 16; // plan to this
 
         //  dont plan all the way to the border - to allow seeing new enemies soon enough

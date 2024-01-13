@@ -83,7 +83,23 @@ public class AgentBenchmarkMetacentrum {
                     logWriter.write("DFPMP:" + AStarTree.DISTANCE_FROM_PATH_MULTIPLICATIVE_PENALTY + "\n");
                     logWriter.write("level,win/fail,% travelled,run time,game ticks,planning time,total plannings,nodes evaluated,most backtracked nodes\n");
                     break;
+                case "astarWindow":
+                    mff.agents.astarWindow.AStarTree.windowOffset=Float.parseFloat(params[0]);
+                    AgentBenchmarkGame.maxTime=Long.parseLong(params[1]);
+                    log = prepareLog("agent-benchmark"+File.separator + agentType + "-"+ level 
+                        + "-WO-" + mff.agents.astarWindow.AStarTree.windowOffset
+                        + "-MT-" + AgentBenchmarkGame.maxTime
+                        );
+                    if (log == null)
+                        return logWriter;
+                    logWriter = new FileWriter(log);
+
+                    logWriter.write("WO:" + mff.agents.astarWindow.AStarTree.windowOffset + "\n");
+                    logWriter.write("MT:" + AgentBenchmarkGame.maxTime + "\n");
+                    logWriter.write("level,win/fail,% travelled,run time,game ticks,planning time,total plannings,nodes evaluated,most backtracked nodes\n");
+                    break;
                 //Others might be added later on
+
                 default:
                     break;
             }
@@ -101,12 +117,12 @@ public class AgentBenchmarkMetacentrum {
         add("original");
         add("krys");
         //add("ge");
-       // add("hopper");
+        add("hopper");
         //add("notch");
         //add("notchParam");
-       // add("notchParamRand");
+        //add("notchParamRand");
         //add("ore");
-        add("patternCount");
+        //add("patternCount");
         //add("patternOccur");
         //add("patternWeightCount");
     }};

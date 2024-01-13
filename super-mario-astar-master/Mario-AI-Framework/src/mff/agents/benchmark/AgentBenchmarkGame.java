@@ -15,7 +15,7 @@ import java.awt.*;
 import java.awt.image.VolatileImage;
 
 public class AgentBenchmarkGame {
-    public static final long maxTime = 33;
+    public static long maxTime = 33;
     public static final int width = 256;
     public static final int height = 256;
     public boolean pause = false;
