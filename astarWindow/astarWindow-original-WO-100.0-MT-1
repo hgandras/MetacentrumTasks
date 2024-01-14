@@ -1,0 +1,18 @@
+WO:100.0
+MT:1
+level,win/fail,% travelled,run time,game ticks,planning time,total plannings,nodes evaluated,most backtracked nodes
+Mario-1,false,0.28,380,206,322,206,1091,7
+Mario-2,true,1.00,365,301,341,292,4386,62
+Mario-3,false,0.14,25,47,17,47,844,63
+Mario-4,false,0.95,7251,6666,7145,6666,590411,57
+Mario-5,true,1.00,249,444,185,431,10960,102
+Mario-6,false,0.13,8,35,8,35,1390,69
+Mario-7,true,1.00,138,438,107,422,10981,155
+Mario-8,true,1.00,264,481,226,462,22007,174
+Mario-9,true,1.00,168,388,152,373,9058,180
+Mario-10,false,0.26,20,75,18,75,1645,67
+Mario-11,true,1.00,249,406,224,393,7895,58
+Mario-12,false,0.24,287,231,286,231,5138,68
+Mario-13,false,0.30,66,109,66,109,8222,187
+Mario-14,true,1.00,125,375,114,362,7926,122
+Mario-15,true,1.00,360,858,331,845,26361,197
